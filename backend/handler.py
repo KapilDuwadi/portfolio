@@ -54,6 +54,9 @@ class Handler:
         finally:
             server.quit() 
 
+    async def get_health(self, request):
+        return web.Response(text=json.dumps(f"Success"), status=200)
+
     async def handle_letstalk(self, request):
         
         data = await request.json()

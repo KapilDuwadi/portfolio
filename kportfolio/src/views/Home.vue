@@ -13,7 +13,7 @@
         <p>Currently working at <a href="https://www.nrel.gov/" target="_blank">National Renewable Energy <br> Laboratory (NREL)</a>, Golden , CO, USA</p>
         <div class="home-buttons">
           <button @click="handleTalk">Let's Talk</button>
-          <a href="http://localhost:5001/resume"><button>Download Resume</button></a>
+          <a href="https://kduwadi.com/api/resume"><button>Download Resume</button></a>
         </div>
         <div class="icons">
           <a href="https://github.com/KapilDuwadi" target="_blank">
@@ -69,6 +69,7 @@
 
 <script>
 import LetsTalk from '../components/LetsTalk.vue';
+
 export default {
   name: "navBar",
   components: {

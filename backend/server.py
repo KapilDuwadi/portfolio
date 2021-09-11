@@ -64,6 +64,7 @@ class KDuwadi:
             web.post('/demorequest', self.handler.handle_demo_request),
             web.post('/letstalk', self.handler.handle_letstalk),
             web.get('/resume', self.handler.get_resume),
+            web.get('/health', self.handler.get_health)
         ])
     
     def configure_cors_on_all_routes(self):

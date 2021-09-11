@@ -59,7 +59,7 @@ export default {
         submitDemoForm(){
             console.log(this.form)
             this.$emit("submitClicked")
-            axios.post('http://localhost:5001/demorequest', this.form).then( 
+            axios.post('https://kduwadi.com/api/demorequest', this.form).then( 
                     (response) => {
                         console.log(response.status)
                     }, (error) => {

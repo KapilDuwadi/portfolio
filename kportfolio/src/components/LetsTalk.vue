@@ -39,7 +39,7 @@ export default {
         },
         submitForm(){
             console.log(this.form)
-            axios.post('http://localhost:5001/letstalk', this.form).then( 
+            axios.post('https://kduwadi.com/api/letstalk', this.form).then( 
                     (response) => {
                         console.log(response.status)
                     }, (error) => {
