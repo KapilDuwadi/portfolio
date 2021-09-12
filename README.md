@@ -111,20 +111,38 @@ your computer. Use command below to ssh into an instance
     certbot renew --dry-run
     ```
   
-18. Deploying python server
+18. Deploying python backend server
 
- 20.1 If python is not installed execute sudo yum install python37
- 20.2 Install all dependencies using pip3 install <module_name>
- 20.3 Set environment variables using command "export BASE_URL=www.kduwadi.com"
- 20.4 How to deploy aiohttp server in separate process
-	20.4.1 Install supervisord usng command pip3 install superviosr
-	20.4.2 Run command `echo_supervisord_conf > supervisord.conf` to write default configuration
-	20.4.3 Killing the process where supervisord is running https://stackoverflow.com/questions/14479894/stopping-supervisord-shut-down
-	  ps -ef | grep supervisord
+    - If python is not installed execute 
+        ```
+        sudo yum install python37
+        ```
+    - Install all dependencies using 
+        ```
+        pip3 install <module_name>
+        ```
+    - Set environment variables using command 
+        ```
+        export BASE_URL=www.kduwadi.com
+        ```
+19. How to deploy aiohttp server in separate process
+
+	- Install supervisord usng command 
+        ```
+        pip3 install superviosr
+        ```
+	- Run command `echo_supervisord_conf > supervisord.conf` to write default configuration
+	
+    - Killing the process where supervisord is running (https://stackoverflow.com/questions/14479894/stopping-supervisord-shut-down)
+	  
+      ```
+      ps -ef | grep supervisord
 	  kill -s SIGTERM <>
+      ```
 	  
 	  supervisord config
-	  [program:aiohttp]
+	  ```
+      [program:aiohttp]
 	  numprocs=1
 	  numprocs_start=1
 	  process_name= example_%(process_num)s
@@ -134,6 +152,7 @@ your computer. Use command below to ssh into an instance
 	  stderr_logfile=/home/mylog.err.log
 	  stdout_logfile=/home/ec2-user/mylog.log 
 	  environment=HELLO='hello',PASS='pass'
+      ```
 
 
 	  
