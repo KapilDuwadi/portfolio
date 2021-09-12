@@ -61,10 +61,10 @@ class KDuwadi:
         
         #self.swagger.register_media_type_handler("multipart/form-data", self.handler.post_precise)
         self.swagger.add_routes([
-            web.post('/demorequest', self.handler.handle_demo_request),
-            web.post('/letstalk', self.handler.handle_letstalk),
-            web.get('/resume', self.handler.get_resume),
-            web.get('/health', self.handler.get_health)
+            web.post('/api/demorequest', self.handler.handle_demo_request),
+            web.post('api/letstalk', self.handler.handle_letstalk),
+            web.get('/api/resume', self.handler.get_resume),
+            web.get('/api/health', self.handler.get_health)
         ])
     
     def configure_cors_on_all_routes(self):
