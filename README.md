@@ -154,6 +154,12 @@ your computer. Use command below to ssh into an instance
 	  environment=HELLO='hello',PASS='pass'
       ```
 
+    - Run the server in a process
+
+        ```
+        supervisord -c supervisor.conf
+        ```
+
 
 	  
 	  
