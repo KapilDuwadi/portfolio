@@ -192,4 +192,19 @@ export default {
   display: flex;
 }
 
+@media (max-width: 700px){
+  .work-menus{
+    flex-direction: column;
+  }
+
+  .work-inner-container{
+    display: flex;
+    flex-direction: column;
+  }
+  .highlight-button{
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+
 </style>

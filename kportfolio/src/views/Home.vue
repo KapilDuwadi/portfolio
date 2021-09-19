@@ -205,9 +205,6 @@ export default {
   justify-self: end;
 }
 
-
-
-
 .pcard h3{
   font-size: 1.5em;
   padding-bottom: 40px;
@@ -386,6 +383,48 @@ export default {
   .home-middle-right p{
     margin-left:0;
     text-align: center;
+  }
+}
+
+@media (max-width: 700px){
+  .me {
+    margin-top: 20px;
+    width: 200px;
+    height: 200px;
+  }
+
+  .home-buttons button{
+    min-width: 100px;
+  }
+
+  .home-highlightbox{
+    justify-content: center;
+    align-items: center;
+  }
+
+  .home-middle-right h1{
+    font-size: 150px;
+  }
+
+  .h3header{
+    font-size: 1.5em;
+  }
+
+  .pcard{
+    width: 60%;
+    height: auto;
+    padding-bottom: 0;
+  }
+
+  .email{
+    right: 20px;
+    width: 60px;
+    height: 60px;
+  }
+  .email img{
+    width: 40px;
+    height: 40px;
+    top: 10px;
   }
 }
 

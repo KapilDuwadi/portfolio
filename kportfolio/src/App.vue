@@ -5,7 +5,9 @@
     <div class="logo">
       <h2>K</h2>
     </div>
-    <div class="nav">
+    <div class="menu-small" @click="show_menu">=</div>
+    <div class="nav" v-if="menu_on">
+      <div class="close" v-if="menu_on" @click="close_menu">X</div>
       <router-link to="/" class="nav-item">Home</router-link> 
       <router-link to="/work" class="nav-item">Works</router-link>
       <router-link to="/education" class="nav-item">Education</router-link>
@@ -15,6 +17,26 @@
 
   <router-view/>
 </template>
+
+<script>
+
+export default {
+  data(){
+    return {
+      menu_on: false
+    }
+  },
+  methods: {
+    show_menu(){
+      this.menu_on = true;
+    },
+    close_menu(){
+      this.menu_on = false
+    }
+  },
+}
+
+</script>
 
 <style>
 
@@ -36,6 +58,22 @@ body{
   position: relative;
 }
 
+
+.menu-small{
+  /* visibility: hidden; */
+  width: 40px;
+  height: 40px;
+  background: teal;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  font-size: 2em;
+}
+
+.menu-small:hover{
+  cursor: pointer;
+}
+
 .container {
   margin: 30px 10% 0 10%;
   display: flex;
@@ -44,8 +82,15 @@ body{
 
 .nav{
   display: flex;
-  width: 70%;
-  justify-content: space-between;
+  position: absolute;
+  flex-direction: column;
+  top: -30px;
+  right: 0;
+  background: rgb(17, 17, 17, 0.95);
+  height: 100%;
+  justify-content: start;
+  z-index: 4;
+  width: 25%;
 }
 
 .nav-item {
@@ -95,4 +140,20 @@ body{
   color: orange;
 }
 
+.close{
+  color: red;
+  padding: 10px;
+  text-align: right;
+}
+
+.close:hover{
+  cursor: pointer;
+}
+
+@media (max-width: 1200px){
+  .back1{
+    width: 200px;
+    height: 200px;
+  }
+}
 </style>

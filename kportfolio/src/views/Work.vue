@@ -105,6 +105,12 @@ export default {
   }
 }
 
+@media (max-width: 700px){
+  .work-menus{
+    flex-direction: column;
+  }
+}
+
 
 
 

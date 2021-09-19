@@ -165,4 +165,11 @@ label {
     background: orange;
 }
 
+@media (max-width: 700px){
+    .demo-form{
+        width: 80%;
+        left: 10%;
+    }
+}
+
 </style>
