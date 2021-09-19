@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 class KDuwadi:
 
-    def __init__(self, host= '127.0.0.1', port= 5001):
+    def __init__(self, host= '0.0.0.0', port= 5001):
 
         # Check env variables
         
