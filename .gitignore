@@ -1,6 +1,6 @@
 .DS_Store
-kportfolio/node_modules
-kportfolio/dist
+node_modules
+/dist
 
 
 # local env files
