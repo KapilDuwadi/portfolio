@@ -95,7 +95,7 @@
         "
       >
         <a
-          href="https://raw.githubusercontent.com/KapilDuwadi/portfolio/main/backend/resume.pdf"
+          href="https://raw.githubusercontent.com/KapilDuwadi/portfolio/main/resume.pdf"
           target="_blank"
         >
           Resume

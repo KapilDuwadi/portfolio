@@ -77,12 +77,7 @@
         </svg>
       </div>
       <div class="flex h-screen flex-col text-lg text-white mt-5">
-        <router-link
-          @click="turnoff_mini_menu"
-          class="hover:text-red-400 py-1"
-          to="/blogs"
-          >Blogs</router-link
-        >
+        <a href="https://blogs.kduwadi.com" class="hover:text-red-400">Blogs</a>
         <router-link
           @click="turnoff_mini_menu"
           class="hover:text-red-400 py-1"
