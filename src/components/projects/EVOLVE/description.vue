@@ -10,6 +10,26 @@
         energy storage and solar on net load profile. It was developed 
         under USAID funding and uses historical load profiles as an input.
     </p>
+
+    <div class="flex justify-center items-center mt-3">
+      <button
+        class="
+          bg-indigo-600
+          text-white
+          rounded-md
+          hover:pointer hover:bg-indigo-800
+          mb-5
+          mt-5
+        "
+      >
+        <p class="px-2 py-1">
+          <a href="https://forms.gle/eXiGM7EbETQ2zHZA8" target="_blank"
+            >Request a Demo
+          </a>
+        </p>
+      </button>
+    </div>
+    
     <p>
         You can choose to perform analysis in different time scales such 
         as daily, weekly and yearly and also at both distribution 
@@ -21,7 +41,7 @@
         graphics in the dashboard. 
     </p>
 
-    <img src="/images/evolve.png" class="w-full mt-5" />
+    <img src="images/evolve.png" class="w-full mt-5" />
     <p class="text-gray-500 text-sm mt-3 mb-5 font-bold" > Fig: A partial snapshot of EVOLVE dashboard</p>
 
     <p> Both frontend and backend applications are dockerized and you can launch both via docker-compose. </p>
@@ -57,10 +77,9 @@
 
 <script>
 export default {
-    name: "evolveDescription"
-}
+  name: "evolveDescription",
+};
 </script>
 
 <style>
-
 </style>

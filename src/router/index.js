@@ -1,9 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import BlogView from '../views/BlogView.vue'
 import ProjectView from '../views/ProjectView.vue'
 import demoForm from '../components/demoForm.vue'
-import talkForm from '@/components/letstalk.vue';
 import PreciseDescription from '../components/projects/PRECISE/description.vue';
 import processingSolar from '../components/projects/PRECISE/description-processing-solar.vue';
 import modelBuilding from '../components/projects/PRECISE/description-model-building.vue';
@@ -12,7 +10,6 @@ import alertNotification from '../components/projects/PRECISE/description-alert-
 import preciseSolarData from '../components/projects/PRECISE/solar-data.vue'
 import preciseTimeSeriesAnalysis from '../components/projects/PRECISE/time-series-analysis.vue'
 import advancedInverterSettings from '../components/projects/PRECISE/advanced-inverter-settings.vue'
-import pythonSkeletonProject from '../components/blogs/python-skeleton.vue'
 import emergeDescription from '../components/projects/EMERGE/description.vue'
 import emergeFeederModeling from '../components/projects/EMERGE/feederModeling.vue'
 import emergeSolarScenarios from '../components/projects/EMERGE/solarScenarios.vue'
@@ -35,15 +32,6 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView,
-  },
-  {
-    path: '/blogs',
-    name: 'blogs',
-    component: BlogView
-  },
-  {
-    path: '/blogs/python-skeleton-project',
-    component: pythonSkeletonProject
   },
   {
     path: '/projects',
@@ -160,16 +148,12 @@ const routes = [
     name: 'demo',
     path: '/demo/:project',
     component: demoForm
-  },
-  {
-    name: 'letstalk',
-    path: '/letstalk',
-    component: talkForm
   }
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  // history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(),
   routes
 })
 

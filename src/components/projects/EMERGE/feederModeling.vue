@@ -11,7 +11,7 @@
         utilities also known as distribution companies typically store
         asset information in a geographic information system (GIS).
         </p>
-    <img class="shadow-md my-3" src="/images/projects/distmodelpic.jpg">
+    <img class="shadow-md my-3" src="images/distmodelpic.jpg">
 
     <p>
        
@@ -46,10 +46,9 @@
 
 <script>
 export default {
-    name: "emergeFeederModeling"
-}
+  name: "emergeFeederModeling",
+};
 </script>
 
 <style>
-
 </style>
