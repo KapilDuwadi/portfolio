@@ -1,3 +1,55 @@
+### Instructions for deploying in Github
+
+1. First add the following line in your `vue.config.js`.
+
+```
+module.exports.publicPath = '/'
+```
+
+2. Secondly you need to update DNS entries in your domain registrar. For e.g. if you
+are using mamecheap login to namecheap, go to domain list, select your domain, click manage and click Advanced DNS.
+
+You need to add following records.
+
+```
+
+A Record, @, 185.199.108.153, 1min
+A Record, @, 185.199.108.153, 1min
+A Record, @, 185.199.108.153, 1min
+A Record, @, 185.199.108.153, 1min
+CBAME Record, www, <githubuserame>.github.io., 1min
+```
+
+3. Create a deploy.sh file in your root repo, copy and paste following content. Don't forget to
+update the website name. 
+
+```
+#!/usr/bin/env sh
+
+# abort on errors
+set -e
+
+# build
+npm run build
+
+cd dist
+# navigate into the build output directory
+
+# if you are deploying to a custom domain
+echo <website_name> > CNAME
+
+cd ..
+
+gh-pages -d dist
+```
+
+4. Install `gh-pages` package by running the following command.
+
+```
+npm install -g gh-pages
+```
+
+5. Now run the command `deploy.sh` from your shell.
 
 ### AWS Deployment Instructions (for FREE)
 
@@ -159,7 +211,3 @@ your computer. Use command below to ssh into an instance
         ```
         supervisord -c supervisor.conf
         ```
-
-
-	  
-	  
