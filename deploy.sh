@@ -6,12 +6,13 @@ set -e
 # build
 npm run build
 
-cd dist
+cd out
 # navigate into the build output directory
 
 # if you are deploying to a custom domain
 echo 'kduwadi.com' > CNAME
+touch .nojekyll
 
 cd ..
 
-gh-pages -d dist
+gh-pages -d out -t true
