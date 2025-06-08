@@ -1,0 +1,227 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #0a192f;
+    color: #fff;
+    padding: 20px;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.main-container {
+    width: 60%;
+}
+
+.hero-font {
+    font-family: Calibre, Inter, "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
+}
+
+.hero {
+    font-size: 72px;
+    font-weight: 600;
+    line-height: 88px;
+    color: rgb(204, 214, 246);
+    padding-bottom: 1.5rem;
+}
+
+.hero-sub {
+    line-height: 72px;
+    font-size: 72px;
+    font-weight: 600;
+    color: rgb(136, 146, 176);
+    padding-bottom: 2rem;
+}
+
+.hero-description {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 30px;
+    width: 600px;
+    color: rgb(136, 146, 176);
+}
+
+.hero-link {
+    color: rgb(100, 255, 218);
+    position: relative;
+    /* Required so ::after is positioned relative to the link */
+    text-decoration: none;
+    /* Optional: removes default underline */
+}
+
+.hero-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background-color: rgba(100, 255, 218, 0.5);
+    /* uses the link's color */
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+.mono-font {
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+}
+
+.hero-link:hover::after {
+    transform: scaleX(1);
+}
+
+.email-container {
+    position: fixed;
+    bottom: 0;
+    right: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+}
+
+.email-link {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    color: rgb(136, 146, 176);
+    padding-bottom: 3rem;
+}
+
+.email-line {
+    width: 1px;
+    height: 100px;
+    background-color: rgb(136, 146, 176);
+}
+
+.cursor-light {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    /* Bigger size */
+    height: 300px;
+    background: radial-gradient(circle,
+            rgba(100, 255, 218, 0.08) 0%,
+            /* lighter center */
+            rgba(100, 255, 218, 0.03) 40%,
+            /* subtle blend */
+            transparent 80%);
+    pointer-events: none;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: top 0.05s, left 0.05s;
+    z-index: 9999;
+    mix-blend-mode: lighten;
+    /* Soft blend with background */
+}
+
+.social {
+    position: fixed;
+    writing-mode: vertical-rl;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    top: 0%;
+    left: 5rem;
+    align-items: center;
+}
+
+.social-line {
+    width: 1px;
+    height: 100px;
+    background-color: rgb(136, 146, 176);
+}
+
+i.bi {
+    color: gray;
+    font-size: 28px;
+    /* bigger size */
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+i.bi:hover {
+    color: rgba(100, 255, 218, 0.5);
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+    .hero {
+        font-size: 50px;
+        line-height: 30px;
+    }
+    .hero-sub {
+        font-size: 50px;
+        line-height: 50px;
+    }
+    .hero-description {
+        font-size: 18px;
+        width: 80%;
+    }
+    i.bi {
+        font-size: 16px;
+    }
+
+    .email-container {
+        right: 2rem;
+    }
+
+    .social {
+        left: 2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .email-container {
+        display: none;
+    }
+    .main-container {
+        width: 80%;
+    }
+    .hero {
+        font-size: 35px;
+        line-height: 40px;
+    }
+    .hero-sub {
+        font-size: 35px;
+        line-height: 40px;
+    }
+    .hero-description {
+        font-size: 18px;
+        width: 80%;
+    }
+    .social {
+        display: none;
+    }
+}
+
+@media (max-width: 400px) {
+    .hero {
+        font-size: 25px;
+        line-height: 20px;
+    }
+    .hero-sub {
+        font-size: 25px;
+        line-height: 20px;
+    }
+    .hero-description {
+        font-size: 18px;
+        width: 90%;
+    }
+}
+
