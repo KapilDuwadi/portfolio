@@ -10,7 +10,7 @@ body {
     line-height: 1.6;
     background-color: #0a192f;
     color: #fff;
-    padding: 20px;
+    padding: 0px;
 }
 
 .main {
@@ -54,6 +54,7 @@ body {
 
 .hero-link {
     color: rgb(100, 255, 218);
+    display: inline-block;
     position: relative;
     /* Required so ::after is positioned relative to the link */
     text-decoration: none;
@@ -74,12 +75,12 @@ body {
     transition: transform 0.3s ease-in-out;
 }
 
-.mono-font {
-    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
-}
-
 .hero-link:hover::after {
     transform: scaleX(1);
+}
+
+.mono-font {
+    font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
 }
 
 .email-container {
@@ -147,16 +148,27 @@ body {
     background-color: rgb(136, 146, 176);
 }
 
+.link-animate {
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+}
+
+.link-animate:hover {
+    transform: translateY(-5px);
+}
+
+.link-animate:hover p {
+    color: rgb(100, 255, 218);
+}
+
 i.bi {
     color: gray;
     font-size: 28px;
     /* bigger size */
-    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 i.bi:hover {
     color: rgba(100, 255, 218, 0.5);
-    transform: translateY(-5px);
     cursor: pointer;
 }
 
@@ -221,7 +233,7 @@ i.bi:hover {
     }
     .hero-description {
         font-size: 18px;
-        width: 90%;
+        width: 100%;
     }
 }
 
