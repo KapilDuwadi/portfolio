@@ -1,4 +1,10 @@
 // Function to create project card
+
+function parseMarkdownLinks(text) {
+  const markdownLinkRegex = /\[([^\]]+)]\((https?:\/\/[^\s)]+)\)/g;
+  return text.replace(markdownLinkRegex, '<a class="hero-link" href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+}
+
 function createProjectCard(project) {
   const card = document.createElement('div');
   card.className = 'project-card';
@@ -10,7 +16,7 @@ function createProjectCard(project) {
     </a>
     <div class="project-info">
       <h3>${project.title}</h3>
-      <p>${project.description}</p>
+      ${parseMarkdownLinks(project.description)}
       <div class="skills">
         ${project.skills.map(skill => `<p class="mono-font skill-tag">${skill}</p>`).join('')}
       </div>

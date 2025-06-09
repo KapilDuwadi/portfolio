@@ -3,21 +3,21 @@
     "title": "Home Energy Rebate Tool",
     "image": "images/ira.png",
     "link": "https://www.pnnl.gov/projects/rebate-tools",
-    "description": "Actively contributing to the development and maintenance of the Home Energy Rebate Web Application for the U.S. Department of Energy. Enables States to report Electrification and Homes rebate reservation to provide uniform reporting for DOE.",
+    "description": "Actively contributing to the development and maintenance of the Home Energy Rebate Web Application for the [U.S. Department of Energy](https://www.energy.gov/). Enables States to report Electrification and Homes rebate reservation to provide uniform reporting for DOE.",
     "skills": ["Python", "Django", "FastAPI", "JSONSchema"]
   },
   {
     "title": "Home Energy Score, DOE",
     "image": "images/hescore.png",
     "link": "https://betterbuildingssolutioncenter.energy.gov/home-energy-score",
-    "description": "Actively contributing to the development and maintenance of the Home Energy Score Web Application for the U.S. Department of Energy. It integrates with NREL’s OpenStudio software to perform building energy simulations and generate standardized energy efficiency scores for residential buildings.",
+    "description": "Actively contributing to the development and maintenance of the Home Energy Score Web Application for the [U.S. Department of Energy](https://www.energy.gov/). It integrates with [NREL’s OpenStudio](https://openstudio.net/) software to perform building energy simulations and generate standardized energy efficiency scores for residential buildings.",
     "skills": ["Javascript", "Node JS", "TypeORM"]
   },
   {
     "title": "GPST Open Tools Submission Portal",
     "image": "images/open-portal.png",
     "link": "https://opentools.globalpst.org/contribute/",
-    "description": "Developed a web form for researchers and contributors to submit open-source research tools to the Global Power System Transformation (GPST) Consortium, supporting global collaboration in power system innovation and analysis.",
+    "description": "Developed a web form for researchers and contributors to submit open-source research tools to the Global Power System Transformation, [GPST](https://globalpst.org/) Consortium, supporting global collaboration in power system innovation and analysis.",
     "skills": ["Javascript", "React", "Tailwind"]
   },
   {
