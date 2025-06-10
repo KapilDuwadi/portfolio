@@ -15,7 +15,7 @@ function createProjectCard(project) {
       <div class="image-rect"></div>
     </a>
     <div class="project-info">
-      <h3>${project.title}</h3>
+      <h3 class="project-title">${project.title}</h3>
       ${parseMarkdownLinks(project.description)}
       <div class="skills">
         ${project.skills.map(skill => `<p class="mono-font skill-tag">${skill}</p>`).join('')}
