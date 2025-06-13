@@ -9,12 +9,13 @@
     --primary-color: #22c55e;
     --secondary-color: #959595;
     --default-color: #fbfafc;
+    --secondary-font: Georgia, 'Times New Roman', Times, serif;
     --primary-font: Poppins, Inter, "San Francisco", "SF Pro Text", -apple-system, system-ui, sans-serif;
     --mono-font: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--secondary-color);
     line-height: 1.6;
     background-color: var(--background-color);
     color: var(--default-color);
