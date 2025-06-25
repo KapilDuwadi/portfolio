@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/logo.svg" type="image/x-icon">
     <title>Kapil Duwadi</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
@@ -14,40 +15,80 @@
 </head>
 
 <body>
-    <div class="main">
-        <div class="main-container ">
-            <h1 class="hero hero-font">Kapil Duwadi.</h1>
-            <h1 class="hero-sub hero-font">I take research to the web.</h1>
-            <p class="hero-description"> I'm a software engineer specializing in taking
-                research ideas and turning them into web applications. Currently, I'm
-                focused on building and contributing to multiple software projects for DOE at
-                <a class="hero-link" href="https://www.pnnl.gov/" target="_blank"> Pacific Northwest National
-                    Laboratory. </a>
-            </p>
-            <div class="social">
-                <!-- <div class="social-line"></div> -->
-                <a href="https://github.com/KapilDuwadi" target="_blank" class="link-animate"> <i class="bi bi-github"></i> </a>
-                <a href="https://www.linkedin.com/in/kapil-duwadi/" target="_blank" class="link-animate"> <i
-                        class="bi bi-linkedin"></i> </a>
-                <a href="https://x.com/duwadi_kapil" target="_blank" class="link-animate"> <i class="bi bi-twitter-x"></i> </a>
-                <a href="mailto:kapil.duwadi34@gmail.com" target="_blank" class="link-animate"> <i class="bi bi-envelope"></i> </a>
-            </div>
+    <nav class="nav-panel">
+        <img src="images/logo.svg" width="40" height="40" alt="Kapil Duwadi" />
+        <div class="hamburger" onclick="toggleMenu(this)">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-    </div>
-    <div class="cursor-light"></div>
-    <div class="projects">
-        <div class="projects-container">
-            <div class="feature-header">
-                <p class="hero-font featured-title"> Projects </p>
-                <div class="feature-line-container">
-                    <div class="project-line"></div>
-                    <div class="circle"></div>
+        <div class="nav-links" id="nav-links">
+            <a class="nav-link" href="#home">Home</a>
+            <a class="nav-link" href="#projects">Projects</a>
+            <a class="nav-link" href="#experience">Experience</a>
+            <!-- <a class="nav-link" href="#skills">Skills</a>
+            <a class="nav-link" href="#education">Education</a> -->
+        </div>
+    </nav>
+    <section id="home">
+        <div class="main">
+            <div class="main-container ">
+                <h1 class="hero hero-font">Kapil Duwadi.</h1>
+                <h1 class="hero-sub hero-font">I take research to the web.</h1>
+                <p class="hero-description"> I'm a software engineer specializing in taking
+                    research ideas and turning them into web applications. Currently, I'm
+                    focused on building and contributing to multiple software projects for <a class="hero-link"
+                        href="https://www.energy.gov/" target="_blank"> DOE
+                    </a> at
+                    <a class="hero-link" href="https://www.pnnl.gov/" target="_blank"> Pacific Northwest National
+                        Laboratory. </a>
+                </p>
+                <div class="social">
+                    <!-- <div class="social-line"></div> -->
+                    <a href="https://github.com/KapilDuwadi" target="_blank" class="link-animate"> <i
+                            class="bi bi-github"></i> </a>
+                    <a href="https://www.linkedin.com/in/kapil-duwadi/" target="_blank" class="link-animate"> <i
+                            class="bi bi-linkedin"></i> </a>
+                    <a href="https://x.com/duwadi_kapil" target="_blank" class="link-animate"> <i
+                            class="bi bi-twitter-x"></i> </a>
+                    <a href="mailto:kapil.duwadi34@gmail.com" target="_blank" class="link-animate"> <i
+                            class="bi bi-envelope"></i> </a>
                 </div>
             </div>
-            <div id="project-list" class="project-list"></div>
-            <button id="show-more-btn">Show More</button>
         </div>
-    </div>
+    </section>
+    <div class="cursor-light"></div>
+    <section id="projects">
+        <div class="projects">
+            <div class="projects-container">
+                <div class="feature-header">
+                    <p class="hero-font featured-title"> Projects </p>
+                    <div class="feature-line-container">
+                        <div class="project-line"></div>
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div id="project-list" class="project-list"></div>
+                <button id="show-more-btn">Show More</button>
+            </div>
+        </div>
+    </section>
+    <!-- <section id="experience">
+        <div class="experience">
+            <div class="experience-container">
+                <div class="feature-header">
+                    <p class="hero-font featured-title"> Experience </p>
+                    <div class="feature-line-container">
+                        <div class="project-line"></div>
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="experience-list">
+                    <p class="hero-font">Coming soon...</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
 </body>
 <script>
     const cursorLight = document.querySelector('.cursor-light');
@@ -55,6 +96,12 @@
         cursorLight.style.top = `${e.clientY}px`;
         cursorLight.style.left = `${e.clientX}px`;
     });
+</script>
+<script>
+    function toggleMenu(hamburger) {
+        hamburger.classList.toggle("active");
+        document.getElementById('nav-links').classList.toggle('show');
+    }
 </script>
 
 </html>
