@@ -75,8 +75,8 @@ i.bi:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #0a192f;
-    padding: 1rem 2rem;
+    background-color: #0e213d;
+    padding: 1rem 10%;
     color: white;
     position: sticky;
     top: 0;
@@ -85,7 +85,7 @@ i.bi:hover {
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     align-items: center;
 }
 
@@ -408,10 +408,35 @@ i.bi:hover {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    margin-top: 2rem;
 }
 
 .experience-container {
     width: 60%;
+}
+
+.experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    margin-top: 2rem;
+}
+
+.experience-title {
+    padding-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.experience-details {
+    display: flex;
+    gap: 1rem;
+    color: var(--secondary-color);
+}
+
+.company-link {
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+    text-decoration: none;
 }
 
 @media (max-width: 1200px) {
