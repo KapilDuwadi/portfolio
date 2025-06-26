@@ -530,6 +530,15 @@ i.bi:hover {
         width: 100%;
         margin-bottom: 2rem;
     }
+
+    .experience-details {
+        flex-direction: column;
+        gap: 0rem;
+    }
+
+    .experience-details span {
+        display: none;
+    }
 }
 
 @media (max-width: 400px) {
