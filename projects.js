@@ -1,58 +1,108 @@
-// Parse markdown-style links in descriptions
-function parseMarkdownLinks(text) {
-  return text.replace(
-    /\[([^\]]+)]\((https?:\/\/[^\s)]+)\)/g,
-    '<a class="text-accent hover:underline underline-offset-2" href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-  );
-}
+const PROJECT_META = {
+  "Home Energy Rebate Tool":               { tag: "Federal Platform", year: "2024", grad: 1 },
+  "Home Energy Score, DOE":               { tag: "Federal Platform", year: "2023", grad: 2 },
+  "GPST Open Tools Submission Portal":    { tag: "Open Source",      year: "2023", grad: 3 },
+  "Fast Tracking Roof Top Solar Application Processing": { tag: "Research Tool", year: "2022", grad: 4 },
+  "North American Energy Resilience Model (NAERM)":      { tag: "Federal Platform", year: "2021", grad: 5 },
+};
 
-// Build a single project card
-function createProjectCard(project) {
-  const card = document.createElement('div');
-  card.className = 'card group rounded-xl overflow-hidden bg-surface-1 border border-border';
+function createProjectCard(project, index, total) {
+  const meta = PROJECT_META[project.title] || { tag: "Project", year: "2023", grad: 1 };
+
+  const wrap = document.createElement("div");
+  wrap.className = "card-wrap reveal";
+  wrap.style.setProperty("--rd", `${(index % 2) * 120}ms`);
+
+  const card = document.createElement("article");
+  card.className = "card";
+  card.setAttribute("data-index", index);
 
   card.innerHTML = `
-    <div class="h-44 sm:h-52 overflow-hidden relative">
-      <div class="img-overlay z-10"></div>
+    <div class="card-media">
       <img
-        alt="${project.title}"
-        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         src="${project.image}"
+        alt="${project.title}"
         loading="lazy"
       />
+      <div class="card-media-overlay"></div>
+      <span class="card-tag">${meta.tag}</span>
+      <span class="card-year">${meta.year}</span>
     </div>
-    <div class="p-5 sm:p-6">
-      <div class="flex justify-between items-start gap-3 mb-3">
-        <h3 class="text-base font-semibold text-gray-100 group-hover:text-accent transition-colors leading-snug">${project.title}</h3>
-        <a href="${project.link}" target="_blank" rel="noopener noreferrer"
-           class="shrink-0 text-muted hover:text-accent transition-colors"
-           aria-label="Open ${project.title}">
-          <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-            <path d="M7 17L17 7M17 7H7M17 7v10"/>
-          </svg>
-        </a>
-      </div>
-      <p class="text-subtle text-[.82rem] leading-relaxed mb-4">
-        ${parseMarkdownLinks(project.description)}
-      </p>
-      <div class="flex flex-wrap gap-1.5">
-        ${project.skills.map(s => `<span class="tag">${s}</span>`).join('')}
-      </div>
+    <div class="card-meta">
+      <span>${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}</span>
+      <span>${meta.tag}</span>
+    </div>
+    <h3 class="card-title">${project.title}</h3>
+    <p class="card-desc">${project.description.replace(/\[([^\]]+)]\(([^)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')}</p>
+    <div class="card-stack">
+      ${project.skills.map(s => `<span>${s}</span>`).join("")}
+    </div>
+    <div class="card-links">
+      <a href="${project.link}" target="_blank" rel="noopener noreferrer">
+        Visit project
+        <svg class="arrow" width="11" height="11" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2">
+          <path d="M7 17 17 7M9 7h8v8"/>
+        </svg>
+      </a>
     </div>
   `;
 
-  return card;
+  // 3D tilt on hover
+  card.addEventListener("mousemove", e => {
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    card.style.setProperty("--card-tilt-y", `${(px - 0.5) * 5}deg`);
+    card.style.setProperty("--card-tilt-x", `${(0.5 - py) * 3.5}deg`);
+  });
+  card.addEventListener("mouseleave", () => {
+    card.style.setProperty("--card-tilt-y", "0deg");
+    card.style.setProperty("--card-tilt-x", "0deg");
+  });
+
+  wrap.appendChild(card);
+  return wrap;
 }
 
-// Load and render
 function loadProjects() {
-  fetch('projects.json')
+  fetch("projects.json")
     .then(r => r.json())
     .then(data => {
-      const container = document.getElementById('project-list');
-      data.forEach(p => container.appendChild(createProjectCard(p)));
+      const container = document.getElementById("project-list");
+      if (!container) return;
+      data.forEach((p, i) => {
+        const el = createProjectCard(p, i, data.length);
+        container.appendChild(el);
+      });
+
+      // Trigger IntersectionObserver for newly added cards
+      document.querySelectorAll(".card-wrap.reveal:not(.in)").forEach(el => {
+        revealObserver.observe(el);
+      });
     })
-    .catch(err => console.error('Error loading projects:', err));
+    .catch(err => console.error("Error loading projects:", err));
 }
 
-document.addEventListener('DOMContentLoaded', loadProjects);
+// Expose observer so loadProjects can register new elements
+let revealObserver;
+
+document.addEventListener("DOMContentLoaded", () => {
+  revealObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          revealObserver.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
+  );
+
+  // Observe existing reveal elements
+  document.querySelectorAll(".reveal, .reveal-clip").forEach(el => revealObserver.observe(el));
+
+  loadProjects();
+});

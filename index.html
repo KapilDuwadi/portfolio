@@ -1,630 +1,444 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
-
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <link rel="icon" href="images/logo.svg" type="image/x-icon">
-    <title>Kapil Duwadi — Software Engineer</title>
-    <meta name="description"
-        content="Software engineer specializing in turning research ideas into web applications for the U.S. Department of Energy.">
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "accent": "#6366f1",   /* indigo-500 – richer than plain blue */
-                        "accent-dim": "#4f46e5",   /* indigo-600 */
-                        "surface-0": "#0b0f1a",   /* deepest bg */
-                        "surface-1": "#111827",   /* card bg */
-                        "surface-2": "#1e2536",   /* raised card / hover */
-                        "border": "#1f2937",   /* subtle borders */
-                        "muted": "#6b7280",   /* secondary text */
-                        "subtle": "#9ca3af",   /* tertiary text */
-                    },
-                    fontFamily: {
-                        sans: ["Inter", "system-ui", "sans-serif"],
-                        mono: ["JetBrains Mono", "monospace"],
-                    },
-                },
-            },
-        }
-    </script>
-    <style>
-        /* ---- base resets ---- */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="images/logo.svg" type="image/x-icon">
+  <title>Kapil Duwadi — Software Engineer</title>
+  <meta name="description" content="Software engineer specializing in turning research ideas into web applications for the U.S. Department of Energy.">
 
-        html {
-            scroll-behavior: smooth;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-        /* ---- custom scrollbar ---- */
-        .scroll-area::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .scroll-area::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .scroll-area::-webkit-scrollbar-thumb {
-            background: #1f2937;
-            border-radius: 99px;
-        }
-
-        .scroll-area::-webkit-scrollbar-thumb:hover {
-            background: #6366f1;
-        }
-
-        /* ---- dot-grid texture ---- */
-        .dot-grid {
-            background-image: radial-gradient(rgba(99, 102, 241, .07) 1px, transparent 1px);
-            background-size: 24px 24px;
-        }
-
-        /* ---- glow blob behind sidebar ---- */
-        .glow {
-            position: absolute;
-            width: 420px;
-            height: 420px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(99, 102, 241, .12) 0%, transparent 70%);
-            pointer-events: none;
-            filter: blur(40px);
-        }
-
-        /* ---- nav active indicator ---- */
-        .nav-indicator {
-            transition: width 300ms cubic-bezier(.4, 0, .2, 1), background-color 300ms;
-        }
-
-        .nav-link:hover .nav-indicator,
-        .nav-link.active .nav-indicator {
-            width: 3rem;
-            background-color: #6366f1;
-        }
-
-        .nav-link.active {
-            color: #fff;
-        }
-
-        /* ---- card lift ---- */
-        .card {
-            transition: transform 250ms ease, border-color 300ms ease, box-shadow 300ms ease;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: rgba(99, 102, 241, .45);
-            box-shadow: 0 8px 30px rgba(99, 102, 241, .08);
-        }
-
-        /* ---- image overlay ---- */
-        .img-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(99, 102, 241, .25) 0%, rgba(11, 15, 26, .6) 100%);
-            transition: opacity 400ms;
-        }
-
-        .group:hover .img-overlay {
-            opacity: 0;
-        }
-
-        /* ---- tag pill ---- */
-        .tag {
-            font-size: .7rem;
-            letter-spacing: .04em;
-            padding: 3px 10px;
-            border-radius: 9999px;
-            background: rgba(99, 102, 241, .1);
-            color: #818cf8;
-            border: 1px solid rgba(99, 102, 241, .15);
-        }
-
-        /* ---- section fade-in on scroll ---- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(18px);
-            transition: opacity 600ms ease, transform 600ms ease;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ---- mobile collapse ---- */
-        @media (max-width: 767px) {
-            body {
-                overflow: auto !important;
-                height: auto !important;
-            }
-
-            .sidebar {
-                position: sticky;
-                top: 0;
-                z-index: 50;
-                transition: padding 350ms ease;
-            }
-
-            /* Full hero content - hidden when collapsed */
-            .sidebar.collapsed .mobile-full {
-                max-height: 0;
-                opacity: 0;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                pointer-events: none;
-            }
-
-            .mobile-full {
-                max-height: 500px;
-                opacity: 1;
-                transition: max-height 400ms ease, opacity 300ms ease, margin 350ms ease;
-            }
-
-            /* Compact bar - shown when collapsed */
-            .mobile-compact {
-                max-height: 0;
-                opacity: 0;
-                overflow: hidden;
-                transition: max-height 350ms ease, opacity 250ms ease;
-            }
-
-            .sidebar.collapsed .mobile-compact {
-                max-height: 80px;
-                opacity: 1;
-            }
-
-            .sidebar.collapsed {
-                padding-top: 0.75rem;
-                padding-bottom: 0.75rem;
-            }
-
-            /* Hide glows on mobile to keep it clean */
-            .sidebar .glow {
-                display: none;
-            }
-        }
-    </style>
-    <script src="projects.js" defer></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="projects.js" defer></script>
 </head>
+<body>
 
-<body
-    class="bg-surface-0 text-white font-sans antialiased md:h-screen flex flex-col md:flex-row md:overflow-hidden selection:bg-accent selection:text-white">
+  <!-- Custom cursor -->
+  <div class="om-cursor-ring" aria-hidden="true"></div>
+  <div class="om-cursor" aria-hidden="true"></div>
 
-    <!-- ═══════════════════════ LEFT SIDEBAR ═══════════════════════ -->
-    <aside id="sidebar" class="sidebar relative w-full md:w-[38%] lg:w-[32%] xl:w-[28%] shrink-0
-              md:h-screen flex flex-col justify-between
-              px-8 py-10 md:px-10 md:py-14 lg:px-14 lg:py-16
-              border-b md:border-b-0 md:border-r border-border/60
-              bg-surface-0 z-20 overflow-hidden">
+  <!-- ── NAV ── -->
+  <nav class="nav" aria-label="Primary" id="nav">
+    <a href="#top" class="nav-brand" aria-label="Home">
+      Kapil<i>D.</i><span class="dot"></span>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="#work"><span class="idx">01</span>Work</a>
+      <a href="#experience"><span class="idx">02</span>Experience</a>
+      <a href="#stack"><span class="idx">03</span>Stack</a>
+      <a href="#contact"><span class="idx">04</span>Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a class="contact" href="#contact">Get in touch</a>
+      <button class="nav-burger" aria-label="Open menu" id="nav-open">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 8h16M4 16h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
 
-        <!-- decorative glow -->
-        <div class="glow -top-40 -right-40"></div>
-        <div class="glow bottom-[-15%] left-[-30%] opacity-50"></div>
+  <!-- Mobile drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <button class="nav-burger" style="position:absolute;top:28px;right:28px" aria-label="Close menu" id="nav-close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M5 5l14 14M19 5L5 19"/>
+      </svg>
+    </button>
+    <a href="#work" class="drawer-link"><span class="idx">01</span>Work</a>
+    <a href="#experience" class="drawer-link"><span class="idx">02</span>Experience</a>
+    <a href="#stack" class="drawer-link"><span class="idx">03</span>Stack</a>
+    <a href="#contact" class="drawer-link"><span class="idx">04</span>Contact</a>
+  </div>
 
-        <!-- ══ COMPACT BAR (mobile only, shown when scrolled) ══ -->
-        <div class="mobile-compact md:hidden">
-            <div class="flex items-center justify-between gap-4">
-                <h2 class="text-lg font-bold tracking-tight">
-                    Kapil <span class="text-accent">Duwadi</span><span class="text-accent">.</span>
-                </h2>
-                <div class="flex items-center gap-4">
-                    <a aria-label="GitHub" class="text-muted hover:text-accent transition-colors"
-                        href="https://github.com/KapilDuwadi" target="_blank">
-                        <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24">
-                            <path clip-rule="evenodd"
-                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                                fill-rule="evenodd" />
-                        </svg>
-                    </a>
-                    <a aria-label="LinkedIn" class="text-muted hover:text-accent transition-colors"
-                        href="https://www.linkedin.com/in/kapil-duwadi/" target="_blank">
-                        <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24">
-                            <path clip-rule="evenodd"
-                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-                                fill-rule="evenodd" />
-                        </svg>
-                    </a>
-                    <a aria-label="Twitter / X" class="text-muted hover:text-accent transition-colors"
-                        href="https://x.com/duwadi_kapil" target="_blank">
-                        <svg class="w-[17px] h-[17px]" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                    </a>
-                    <span class="w-px h-4 bg-border"></span>
-                    <a class="text-xs text-subtle hover:text-accent transition-colors"
-                        href="mailto:kapil.duwadi34@gmail.com">Email</a>
-                </div>
-            </div>
+  <!-- ── HERO ── -->
+  <section id="top" class="hero">
+    <div class="container">
+
+      <div class="hero-meta">
+        <span class="pill">
+          <span class="dot"></span>
+          Software Engineer III · PNNL
+        </span>
+        <span class="loc">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="10" r="3.5"/>
+            <path d="M12 21s7-7 7-12a7 7 0 1 0-14 0c0 5 7 12 7 12z"/>
+          </svg>
+          <span>Richland, WA · Remote</span>
+        </span>
+      </div>
+
+      <h1 class="hero-display" id="hero-display">
+        <span class="reveal-word in" style="transition-delay:0ms">Kapil</span>
+        <i class="reveal-word in" style="transition-delay:120ms">Duwadi</i><span class="reveal-word in" style="transition-delay:240ms">.</span>
+      </h1>
+
+      <div class="hero-sub">
+        <div class="col-l reveal" style="--rd:400ms">
+          (01)&nbsp; Currently<br>
+          Software Engineer III<br>
+          <span style="color:var(--fg-2)">@ PNNL · DOE</span>
+        </div>
+        <div class="col-r reveal" style="--rd:300ms">
+          <p>
+            I build <span class="word-cycle"><span id="word-inner">energy tools</span></span> that turn complex research models into production web software.
+          </p>
+          <p>
+            Six years across national laboratories, bridging the gap between electrical engineering research and user-facing applications.
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-ctas reveal" style="--rd:600ms">
+        <a class="btn btn-primary" href="#work">
+          See selected work
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17 17 7M9 7h8v8"/>
+          </svg>
+        </a>
+        <a class="btn btn-ghost" href="#contact">
+          Get in touch
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17 17 7M9 7h8v8"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <span class="line"></span>
+      <span>Selected work</span>
+    </div>
+  </section>
+
+  <!-- ── MARQUEE ── -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>
+        <span>Energy systems</span><span class="sep"></span>
+        <i>DOE · PNNL · NREL</i><span class="sep"></span>
+        <span>Grid resilience</span><span class="sep"></span>
+        <i>Open to collaborations</i><span class="sep"></span>
+        <span>FastAPI · Python · React</span><span class="sep"></span>
+        <span>Research to production</span><span class="sep"></span>
+        <i>Electrical engineering</i><span class="sep"></span>
+        <span>OpenDSS · Docker</span><span class="sep"></span>
+      </span>
+      <span aria-hidden="true">
+        <span>Energy systems</span><span class="sep"></span>
+        <i>DOE · PNNL · NREL</i><span class="sep"></span>
+        <span>Grid resilience</span><span class="sep"></span>
+        <i>Open to collaborations</i><span class="sep"></span>
+        <span>FastAPI · Python · React</span><span class="sep"></span>
+        <span>Research to production</span><span class="sep"></span>
+        <i>Electrical engineering</i><span class="sep"></span>
+        <span>OpenDSS · Docker</span><span class="sep"></span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ── ABOUT ── -->
+  <section id="about" class="sec">
+    <div class="container">
+      <header class="sec-head">
+        <div class="num">(01) About</div>
+        <h2 class="title"><i>Engineer</i> by training,<br>builder by trade.</h2>
+        <div class="kicker">EE background · Six years at DOE labs</div>
+      </header>
+      <div class="about-grid">
+        <div class="about-col reveal">
+          <p class="about-lead">
+            I'm a software engineer with a foundation in <strong>electrical engineering</strong>. I specialize in turning research ideas into production web applications — bridging the gap between complex energy models and user-friendly software.
+          </p>
+          <p>
+            Currently at <a href="https://www.pnnl.gov/" target="_blank">Pacific Northwest National Laboratory</a>, I build and maintain software for the <a href="https://www.energy.gov/" target="_blank">U.S. Department of Energy</a>. My work enables researchers and policymakers to make data-driven decisions about energy systems and grid resilience.
+          </p>
+        </div>
+        <div class="about-col reveal" style="--rd:150ms">
+          <dl class="about-dl">
+            <dt>Degree</dt>
+            <dd>M.S. Electrical Engineering<br><span>South Dakota State University</span></dd>
+            <dt>Specialization</dt>
+            <dd>Power Systems · Web Engineering</dd>
+            <dt>Focus</dt>
+            <dd>Research software for energy infrastructure</dd>
+            <dt>Contact</dt>
+            <dd><a href="mailto:kapil.duwadi34@gmail.com">kapil.duwadi34@gmail.com</a></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJECTS ── -->
+  <section id="work" class="sec" style="background:var(--bg-2)">
+    <div class="container">
+      <header class="sec-head">
+        <div class="num">(02) Work</div>
+        <h2 class="title"><i>Selected</i> work, 2019 — Now</h2>
+        <div class="kicker">Five projects · DOE &amp; research tools</div>
+      </header>
+      <div id="project-list" class="projects-grid"></div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section id="experience" class="sec">
+    <div class="container">
+      <header class="sec-head">
+        <div class="num">(03) Experience</div>
+        <h2 class="title">Six <i>years</i>, five chapters.</h2>
+        <div class="kicker">Most recent first</div>
+      </header>
+      <div class="timeline">
+
+        <div class="tl-item current reveal">
+          <div class="tl-item-h">
+            <h3 class="tl-role">Software <i>Engineer III</i> — Grid Edge Solutions</h3>
+            <span class="tl-period">2025 — Present</span>
+          </div>
+          <a class="tl-co" href="https://www.pnnl.gov" target="_blank">
+            Pacific Northwest National Laboratory
+            <svg class="arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+          </a>
+          <p class="tl-desc">Building and maintaining grid-edge software for the U.S. DOE. Leading full-stack development of web platforms that enable data-driven energy policy decisions.</p>
+          <div class="tl-stack">
+            <span>Python</span><span>FastAPI</span><span>React</span><span>Docker</span>
+          </div>
         </div>
 
-        <!-- ══ FULL HERO (collapses on mobile scroll) ══ -->
-        <div class="mobile-full">
-            <!-- ── Identity ── -->
-            <div class="relative z-10">
-                <p class="text-[.7rem] font-mono uppercase tracking-[.25em] text-muted mb-6">Portfolio</p>
-                <h1 class="text-4xl md:text-[2.7rem] lg:text-5xl font-extrabold leading-[1.1] tracking-tight mb-5">
-                    Kapil<br><span class="text-accent">Duwadi</span><span class="text-accent">.</span>
-                </h1>
-                <p class="text-[1.05rem] leading-relaxed text-subtle max-w-xs">
-                    I take research to the web — turning complex energy models into elegant software.
-                </p>
-                <div class="mt-6 flex flex-wrap gap-2">
-                    <span class="tag">Software Engineer III</span>
-                    <span class="tag"
-                        style="background:rgba(255,255,255,.04); color:#d1d5db; border-color:rgba(255,255,255,.08);">PNNL
-                        · DOE</span>
-                </div>
-            </div>
-
-            <!-- ── Mobile Social (inside full hero) ── -->
-            <div class="relative z-10 flex flex-col gap-5 mt-8 md:hidden">
-                <div class="flex items-center gap-5">
-                    <a aria-label="GitHub" class="text-muted hover:text-accent transition-colors"
-                        href="https://github.com/KapilDuwadi" target="_blank">
-                        <svg class="w-[22px] h-[22px]" fill="currentColor" viewBox="0 0 24 24">
-                            <path clip-rule="evenodd"
-                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                                fill-rule="evenodd" />
-                        </svg>
-                    </a>
-                    <a aria-label="LinkedIn" class="text-muted hover:text-accent transition-colors"
-                        href="https://www.linkedin.com/in/kapil-duwadi/" target="_blank">
-                        <svg class="w-[22px] h-[22px]" fill="currentColor" viewBox="0 0 24 24">
-                            <path clip-rule="evenodd"
-                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-                                fill-rule="evenodd" />
-                        </svg>
-                    </a>
-                    <a aria-label="Twitter / X" class="text-muted hover:text-accent transition-colors"
-                        href="https://x.com/duwadi_kapil" target="_blank">
-                        <svg class="w-[20px] h-[20px]" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                    </a>
-                </div>
-                <a class="text-sm text-subtle hover:text-accent transition-colors flex items-center gap-1"
-                    href="mailto:kapil.duwadi34@gmail.com">
-                    kapil.duwadi34@gmail.com
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M7 17L17 7M17 7H7M17 7v10" />
-                    </svg>
-                </a>
-            </div>
+        <div class="tl-item reveal" style="--rd:80ms">
+          <div class="tl-item-h">
+            <h3 class="tl-role">Research Software <i>Engineer III</i> — Electrical Distribution</h3>
+            <span class="tl-period">2023 – 2025</span>
+          </div>
+          <a class="tl-co" href="https://www.nrel.gov" target="_blank">
+            National Renewable Energy Laboratory
+            <svg class="arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+          </a>
+          <p class="tl-desc">Built microservices and web applications for electrical distribution systems research. Contributed to the NAERM platform and DOE energy rebate tools across the full stack.</p>
+          <div class="tl-stack">
+            <span>Python</span><span>FastAPI</span><span>MongoDB</span><span>OpenDSS</span>
+          </div>
         </div>
 
-        <!-- ── Navigation (md+ only) ── -->
-        <nav class="hidden md:block mt-auto mb-auto">
-            <ul class="space-y-5">
-                <li><a class="nav-link group flex items-center gap-4 text-sm text-muted hover:text-white transition-colors"
-                        href="#about">
-                        <span class="nav-indicator h-[1px] w-6 bg-border inline-block"></span>About</a></li>
-                <li><a class="nav-link group flex items-center gap-4 text-sm text-muted hover:text-white transition-colors"
-                        href="#projects">
-                        <span class="nav-indicator h-[1px] w-6 bg-border inline-block"></span>Projects</a></li>
-                <li><a class="nav-link group flex items-center gap-4 text-sm text-muted hover:text-white transition-colors"
-                        href="#experience">
-                        <span class="nav-indicator h-[1px] w-6 bg-border inline-block"></span>Experience</a></li>
-                <li><a class="nav-link group flex items-center gap-4 text-sm text-muted hover:text-white transition-colors"
-                        href="#stack">
-                        <span class="nav-indicator h-[1px] w-6 bg-border inline-block"></span>Stack</a></li>
-            </ul>
-        </nav>
-
-        <!-- ── Desktop Social (md+ only) ── -->
-        <div class="relative z-10 hidden md:flex flex-col gap-5">
-            <div class="flex items-center gap-5">
-                <a aria-label="GitHub" class="text-muted hover:text-accent transition-colors"
-                    href="https://github.com/KapilDuwadi" target="_blank">
-                    <svg class="w-[22px] h-[22px]" fill="currentColor" viewBox="0 0 24 24">
-                        <path clip-rule="evenodd"
-                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                            fill-rule="evenodd" />
-                    </svg>
-                </a>
-                <a aria-label="LinkedIn" class="text-muted hover:text-accent transition-colors"
-                    href="https://www.linkedin.com/in/kapil-duwadi/" target="_blank">
-                    <svg class="w-[22px] h-[22px]" fill="currentColor" viewBox="0 0 24 24">
-                        <path clip-rule="evenodd"
-                            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-                            fill-rule="evenodd" />
-                    </svg>
-                </a>
-                <a aria-label="Twitter / X" class="text-muted hover:text-accent transition-colors"
-                    href="https://x.com/duwadi_kapil" target="_blank">
-                    <svg class="w-[20px] h-[20px]" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                </a>
-            </div>
-            <a class="text-sm text-subtle hover:text-accent transition-colors flex items-center gap-1"
-                href="mailto:kapil.duwadi34@gmail.com">
-                kapil.duwadi34@gmail.com
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M7 17L17 7M17 7H7M17 7v10" />
-                </svg>
-            </a>
+        <div class="tl-item reveal" style="--rd:160ms">
+          <div class="tl-item-h">
+            <h3 class="tl-role">Research <i>Engineer II</i> — Electrical Distribution</h3>
+            <span class="tl-period">2019 – 2023</span>
+          </div>
+          <a class="tl-co" href="https://www.nrel.gov" target="_blank">
+            National Renewable Energy Laboratory
+            <svg class="arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+          </a>
+          <p class="tl-desc">Developed end-to-end automated software for rooftop solar application processing and power flow analysis. Built Vue/Python applications integrating with PowerClerk and OpenDSS.</p>
+          <div class="tl-stack">
+            <span>Vue</span><span>Python</span><span>MSSQL</span><span>OpenDSS</span><span>PowerClerk</span>
+          </div>
         </div>
-    </aside>
 
-
-    <!-- ═══════════════════════ RIGHT CONTENT ═══════════════════════ -->
-    <main class="flex-1 h-auto md:h-screen overflow-y-auto scroll-area relative">
-        <div class="dot-grid absolute inset-0 pointer-events-none"></div>
-
-        <div
-            class="relative z-10 px-6 py-14 sm:px-10 md:px-14 lg:px-20 xl:px-28 max-w-4xl mx-auto space-y-28 md:space-y-36">
-
-            <!-- ── ABOUT ── -->
-            <section class="reveal scroll-mt-24" id="about">
-                <h2 class="section-label text-xs font-mono font-medium uppercase tracking-[.2em] text-accent mb-8">About
-                </h2>
-                <p class="text-xl sm:text-2xl font-light leading-relaxed text-gray-200 mb-6">
-                    I'm a software engineer with a foundation in <span class="text-white font-semibold">electrical
-                        engineering</span>.
-                    I specialize in turning research ideas into production web applications — bridging the gap between
-                    complex energy models and user-friendly software.
-                </p>
-                <p class="text-[.95rem] leading-[1.75] text-subtle mb-8">
-                    Currently at <a class="text-accent hover:underline underline-offset-4" href="https://www.pnnl.gov/"
-                        target="_blank">Pacific Northwest National Laboratory</a>,
-                    I build and maintain software for the <a class="text-accent hover:underline underline-offset-4"
-                        href="https://www.energy.gov/" target="_blank">U.S. Department of Energy</a>.
-                    My work enables researchers and policymakers to make data-driven decisions about energy systems and
-                    grid resilience.
-                </p>
-            </section>
-
-
-            <!-- ── PROJECTS ── -->
-            <section class="reveal scroll-mt-24" id="projects">
-                <div class="flex items-center gap-5 mb-10">
-                    <h2
-                        class="section-label text-xs font-mono font-medium uppercase tracking-[.2em] text-accent whitespace-nowrap">
-                        Projects</h2>
-                    <span class="h-px flex-1 bg-border"></span>
-                </div>
-                <div id="project-list" class="grid grid-cols-1 gap-6"></div>
-            </section>
-
-
-            <!-- ── EXPERIENCE ── -->
-            <section class="reveal scroll-mt-24" id="experience">
-                <div class="flex items-center gap-5 mb-10">
-                    <h2
-                        class="section-label text-xs font-mono font-medium uppercase tracking-[.2em] text-accent whitespace-nowrap">
-                        Experience</h2>
-                    <span class="h-px flex-1 bg-border"></span>
-                </div>
-                <div class="space-y-4">
-                    <!-- entry -->
-                    <article class="card bg-surface-1 border border-border rounded-xl p-5 sm:p-6 group">
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
-                            <h3
-                                class="text-[.95rem] font-semibold text-gray-100 group-hover:text-accent transition-colors leading-snug">
-                                Software Engineer III — Grid Edge Solutions
-                            </h3>
-                            <span class="text-xs font-mono text-muted shrink-0">2025 – Present</span>
-                        </div>
-                        <a class="text-sm text-accent/80 hover:text-accent transition-colors"
-                            href="https://www.pnnl.gov" target="_blank">Pacific Northwest National Laboratory</a>
-                        <p class="text-xs text-muted mt-1">Full Time · USA</p>
-                    </article>
-
-                    <article class="card bg-surface-1 border border-border rounded-xl p-5 sm:p-6 group">
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
-                            <h3
-                                class="text-[.95rem] font-semibold text-gray-100 group-hover:text-accent transition-colors leading-snug">
-                                Research Software Engineer III — Electrical Distribution Systems
-                            </h3>
-                            <span class="text-xs font-mono text-muted shrink-0">2023 – 2025</span>
-                        </div>
-                        <a class="text-sm text-accent/80 hover:text-accent transition-colors"
-                            href="https://www.nrel.gov" target="_blank">National Renewable Energy Laboratory</a>
-                        <p class="text-xs text-muted mt-1">Full Time · USA</p>
-                    </article>
-
-                    <article class="card bg-surface-1 border border-border rounded-xl p-5 sm:p-6 group">
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
-                            <h3
-                                class="text-[.95rem] font-semibold text-gray-100 group-hover:text-accent transition-colors leading-snug">
-                                Research Engineer II — Electrical Distribution Systems
-                            </h3>
-                            <span class="text-xs font-mono text-muted shrink-0">2019 – 2023</span>
-                        </div>
-                        <a class="text-sm text-accent/80 hover:text-accent transition-colors"
-                            href="https://www.nrel.gov" target="_blank">National Renewable Energy Laboratory</a>
-                        <p class="text-xs text-muted mt-1">Full Time · USA</p>
-                    </article>
-
-                    <article class="card bg-surface-1 border border-border rounded-xl p-5 sm:p-6 group">
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
-                            <h3
-                                class="text-[.95rem] font-semibold text-gray-100 group-hover:text-accent transition-colors leading-snug">
-                                Graduate Research / Teaching Assistant
-                            </h3>
-                            <span class="text-xs font-mono text-muted shrink-0">2017 – 2019</span>
-                        </div>
-                        <a class="text-sm text-accent/80 hover:text-accent transition-colors"
-                            href="https://www.sdstate.edu/" target="_blank">South Dakota State University</a>
-                        <p class="text-xs text-muted mt-1">Part Time · USA</p>
-                    </article>
-
-                    <article class="card bg-surface-1 border border-border rounded-xl p-5 sm:p-6 group">
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
-                            <h3
-                                class="text-[.95rem] font-semibold text-gray-100 group-hover:text-accent transition-colors leading-snug">
-                                Undergraduate Lecturer / Assistant Lecturer
-                            </h3>
-                            <span class="text-xs font-mono text-muted shrink-0">2015 – 2017</span>
-                        </div>
-                        <a class="text-sm text-accent/80 hover:text-accent transition-colors"
-                            href="https://www.kecktm.edu.np/" target="_blank">Kathmandu Engineering College</a>
-                        <p class="text-xs text-muted mt-1">Part Time · Nepal</p>
-                    </article>
-                </div>
-            </section>
-
-
-            <!-- ── TECHNICAL STACK ── -->
-            <section class="reveal scroll-mt-24" id="stack">
-                <div class="flex items-center gap-5 mb-10">
-                    <h2
-                        class="section-label text-xs font-mono font-medium uppercase tracking-[.2em] text-accent whitespace-nowrap">
-                        Stack</h2>
-                    <span class="h-px flex-1 bg-border"></span>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">⚡</span>
-                        <span class="text-sm text-gray-200">Python</span>
-                    </div>
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">⚙️</span>
-                        <span class="text-sm text-gray-200">FastAPI</span>
-                    </div>
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">🌐</span>
-                        <span class="text-sm text-gray-200">JavaScript</span>
-                    </div>
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">⚛️</span>
-                        <span class="text-sm text-gray-200">React</span>
-                    </div>
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">🖼️</span>
-                        <span class="text-sm text-gray-200">Vue</span>
-                    </div>
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">🐍</span>
-                        <span class="text-sm text-gray-200">Django</span>
-                    </div>
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">🟢</span>
-                        <span class="text-sm text-gray-200">Node.js</span>
-                    </div>
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">🐘</span>
-                        <span class="text-sm text-gray-200">PostgreSQL</span>
-                    </div>
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">🍃</span>
-                        <span class="text-sm text-gray-200">MongoDB</span>
-                    </div>
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">🐳</span>
-                        <span class="text-sm text-gray-200">Docker</span>
-                    </div>
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">🎨</span>
-                        <span class="text-sm text-gray-200">Tailwind CSS</span>
-                    </div>
-                    <div class="card flex items-center gap-3 bg-surface-1 border border-border rounded-lg px-4 py-3">
-                        <span class="text-accent text-lg">📊</span>
-                        <span class="text-sm text-gray-200">OpenDSS</span>
-                    </div>
-                </div>
-            </section>
-
-
-            <!-- ── CTA ── -->
-            <section class="reveal pb-20">
-                <div
-                    class="rounded-2xl border border-border bg-gradient-to-br from-surface-2 to-surface-0 p-10 sm:p-12 text-center">
-                    <h3 class="text-2xl sm:text-3xl font-bold tracking-tight mb-3">Let's work together</h3>
-                    <p class="text-subtle text-sm max-w-md mx-auto mb-8">Open to collaborations, engineering
-                        opportunities, and interesting open-source projects.</p>
-                    <a class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dim text-white font-medium text-sm py-3 px-8 rounded-full transition-all hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5"
-                        href="mailto:kapil.duwadi34@gmail.com">
-                        Get In Touch
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M7 17L17 7M17 7H7M17 7v10" />
-                        </svg>
-                    </a>
-                </div>
-            </section>
-
-            <footer class="text-center text-xs text-muted/60 pb-10">
-                <p>© 2026 Kapil Duwadi</p>
-            </footer>
+        <div class="tl-item reveal" style="--rd:240ms">
+          <div class="tl-item-h">
+            <h3 class="tl-role">Graduate Research / <i>Teaching Assistant</i></h3>
+            <span class="tl-period">2017 – 2019</span>
+          </div>
+          <a class="tl-co" href="https://www.sdstate.edu/" target="_blank">
+            South Dakota State University
+            <svg class="arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+          </a>
+          <p class="tl-desc">Research in electrical power systems while teaching undergraduate courses. M.S. thesis focused on power systems analysis and simulation.</p>
+          <div class="tl-stack">
+            <span>MATLAB</span><span>Power Systems</span>
+          </div>
         </div>
-    </main>
 
-    <!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
-    <script>
-        /* ── Scroll-reveal ── */
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.12 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        <div class="tl-item reveal" style="--rd:320ms">
+          <div class="tl-item-h">
+            <h3 class="tl-role">Undergraduate <i>Lecturer</i></h3>
+            <span class="tl-period">2015 – 2017</span>
+          </div>
+          <a class="tl-co" href="https://www.kecktm.edu.np/" target="_blank">
+            Kathmandu Engineering College
+            <svg class="arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+          </a>
+          <p class="tl-desc">Lectured undergraduate electrical engineering courses in Kathmandu, Nepal. Where it all began.</p>
+          <div class="tl-stack">
+            <span>Electrical Engineering</span>
+          </div>
+        </div>
 
-        /* ── Active nav on scroll ── */
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const scrollContainer = document.querySelector('.scroll-area');
+      </div>
+    </div>
+  </section>
 
-        function updateActiveNav() {
-            let current = '';
-            const offset = 200;
-            sections.forEach(s => {
-                if (s.getBoundingClientRect().top < offset) current = s.id;
-            });
-            navLinks.forEach(link => {
-                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-            });
-        }
-        if (scrollContainer) {
-            scrollContainer.addEventListener('scroll', updateActiveNav, { passive: true });
-            updateActiveNav();
-        }
+  <!-- ── TECHNICAL STACK ── -->
+  <section id="stack" class="sec" style="background:var(--bg-2)">
+    <div class="container">
+      <header class="sec-head">
+        <div class="num">(04) Stack</div>
+        <h2 class="title">Tools of the <i>trade.</i></h2>
+        <div class="kicker">Languages, frameworks &amp; platforms</div>
+      </header>
+      <div class="stack-grid">
+        <div class="stack-item reveal"><span class="stack-icon">⚡</span><span class="stack-name">Python</span></div>
+        <div class="stack-item reveal" style="--rd:50ms"><span class="stack-icon">⚙️</span><span class="stack-name">FastAPI</span></div>
+        <div class="stack-item reveal" style="--rd:100ms"><span class="stack-icon">🌐</span><span class="stack-name">JavaScript</span></div>
+        <div class="stack-item reveal" style="--rd:150ms"><span class="stack-icon">⚛️</span><span class="stack-name">React</span></div>
+        <div class="stack-item reveal" style="--rd:200ms"><span class="stack-icon">🖼️</span><span class="stack-name">Vue</span></div>
+        <div class="stack-item reveal" style="--rd:250ms"><span class="stack-icon">🐍</span><span class="stack-name">Django</span></div>
+        <div class="stack-item reveal" style="--rd:300ms"><span class="stack-icon">🟢</span><span class="stack-name">Node.js</span></div>
+        <div class="stack-item reveal" style="--rd:350ms"><span class="stack-icon">🐘</span><span class="stack-name">PostgreSQL</span></div>
+        <div class="stack-item reveal" style="--rd:400ms"><span class="stack-icon">🍃</span><span class="stack-name">MongoDB</span></div>
+        <div class="stack-item reveal" style="--rd:450ms"><span class="stack-icon">🐳</span><span class="stack-name">Docker</span></div>
+        <div class="stack-item reveal" style="--rd:500ms"><span class="stack-icon">🎨</span><span class="stack-name">Tailwind CSS</span></div>
+        <div class="stack-item reveal" style="--rd:550ms"><span class="stack-icon">📊</span><span class="stack-name">OpenDSS</span></div>
+      </div>
+    </div>
+  </section>
 
-        /* ── Mobile sidebar collapse on scroll ── */
-        (function () {
-            const sidebar = document.getElementById('sidebar');
-            if (!sidebar) return;
-            const mql = window.matchMedia('(max-width: 767px)');
-            let lastY = 0;
+  <!-- ── FOOTER / CONTACT ── -->
+  <footer id="contact" class="footer">
+    <div class="container">
+      <div class="reveal-clip">
+        <h2 class="footer-huge">Let's <i>build</i><br>something.</h2>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a class="footer-mail" href="mailto:kapil.duwadi34@gmail.com">kapil.duwadi34@gmail.com</a>
+          <p class="footer-bio">Open to collaborations, engineering opportunities, and interesting open-source projects.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#stack">Stack</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Elsewhere</h4>
+          <ul>
+            <li><a href="https://github.com/KapilDuwadi" target="_blank">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/kapil-duwadi/" target="_blank">LinkedIn</a></li>
+            <li><a href="https://x.com/duwadi_kapil" target="_blank">Twitter / X</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Colophon</h4>
+          <ul>
+            <li><a href="#">Instrument Serif</a></li>
+            <li><a href="#">JetBrains Mono</a></li>
+            <li><a href="#">Built with care</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Kapil Duwadi · Made with care</span>
+        <span>v2.0 · Last touched May 2026</span>
+      </div>
+    </div>
+  </footer>
 
-            function onScroll() {
-                const y = window.scrollY;
-                if (y > 80) {
-                    sidebar.classList.add('collapsed');
-                } else {
-                    sidebar.classList.remove('collapsed');
-                }
-                lastY = y;
-            }
+  <script>
+    /* ── Custom cursor ── */
+    (function () {
+      if (window.matchMedia("(hover: none)").matches) return;
+      const dot  = document.querySelector(".om-cursor");
+      const ring = document.querySelector(".om-cursor-ring");
+      if (!dot || !ring) return;
 
-            function init() {
-                if (mql.matches) {
-                    window.addEventListener('scroll', onScroll, { passive: true });
-                    onScroll();
-                } else {
-                    window.removeEventListener('scroll', onScroll);
-                    sidebar.classList.remove('collapsed');
-                }
-            }
+      let x = window.innerWidth / 2, y = window.innerHeight / 2;
+      let rx = x, ry = y;
 
-            mql.addEventListener('change', init);
-            init();
-        })();
-    </script>
+      (function tick() {
+        rx += (x - rx) * 0.18;
+        ry += (y - ry) * 0.18;
+        dot.style.transform  = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
+        ring.style.transform = `translate3d(${rx}px,${ry}px,0) translate(-50%,-50%)`;
+        requestAnimationFrame(tick);
+      })();
+
+      document.addEventListener("mousemove", e => { x = e.clientX; y = e.clientY; }, { passive: true });
+      document.addEventListener("mouseleave", () => { dot.style.opacity = "0"; ring.style.opacity = "0"; });
+      document.addEventListener("mouseenter", () => { dot.style.opacity = "1"; ring.style.opacity = "0.45"; });
+      document.addEventListener("mouseover", e => {
+        const interactive = e.target.closest("a, button, .stack-item, .tl-item, .card");
+        dot.classList.toggle("hover",  !!interactive);
+        ring.classList.toggle("hover", !!interactive);
+      }, { passive: true });
+    })();
+
+    /* ── Nav: compact on scroll + active section ── */
+    const nav      = document.getElementById("nav");
+    const navAs    = document.querySelectorAll(".nav-links a");
+    const sections = document.querySelectorAll("section[id]");
+
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("compact", window.scrollY > 80);
+
+      let current = "";
+      sections.forEach(s => {
+        if (s.getBoundingClientRect().top < 180) current = "#" + s.id;
+      });
+      navAs.forEach(a => a.classList.toggle("active", a.getAttribute("href") === current));
+    }, { passive: true });
+
+    /* ── Mobile drawer ── */
+    const drawer = document.getElementById("mobile-drawer");
+    document.getElementById("nav-open").addEventListener("click", () => {
+      drawer.classList.add("open");
+      drawer.removeAttribute("aria-hidden");
+    });
+    document.getElementById("nav-close").addEventListener("click", () => {
+      drawer.classList.remove("open");
+      drawer.setAttribute("aria-hidden", "true");
+    });
+    drawer.querySelectorAll("a").forEach(a => {
+      a.addEventListener("click", () => {
+        drawer.classList.remove("open");
+        drawer.setAttribute("aria-hidden", "true");
+      });
+    });
+
+    /* ── Hero parallax ── */
+    const heroDisplay = document.getElementById("hero-display");
+    window.addEventListener("scroll", () => {
+      const y = window.scrollY;
+      heroDisplay.style.transform = `translate3d(0,${y * 0.18}px,0)`;
+      heroDisplay.style.opacity   = String(Math.max(0.2, 1 - y / 700));
+    }, { passive: true });
+
+    /* ── Word cycle ── */
+    const words    = ["energy tools", "web platforms", "research software", "grid applications", "production systems"];
+    const wordEl   = document.getElementById("word-inner");
+    let   wordIdx  = 0;
+    setInterval(() => {
+      wordEl.style.transform = "translateY(-40%)";
+      wordEl.style.opacity   = "0";
+      setTimeout(() => {
+        wordIdx = (wordIdx + 1) % words.length;
+        wordEl.textContent     = words[wordIdx];
+        wordEl.style.transform = "translateY(0)";
+        wordEl.style.opacity   = "1";
+      }, 280);
+    }, 2600);
+  </script>
 </body>
-
 </html>
